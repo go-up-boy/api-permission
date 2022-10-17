@@ -1,0 +1,97 @@
+syntax = "v1"
+
+info(
+	author: "hz"
+	date:   "2022-09-04"
+	desc:   "用户管理"
+)
+
+import "admin_common.api"
+import "admin_rules.api"
+import "admin_roles.api"
+
+type (
+	CreateUserRequest {
+		HeadImg  string  `json:"headimg"`
+		Username string  `json:"username"`
+		Password string  `json:"password"`
+		RoleIds  []int64 `json:"role_ids"`
+	}
+	CreateUserResponse {
+		Id        int64  `json:"id"`
+		HeadImg   string `json:"headimg"`
+		Username  string `json:"username"`
+		CreatedAt string `json:"created_at"`
+	}
+
+	UpdateUserRequest {
+		Id       int64   `json:"id"`
+		HeadImg  string  `json:"headimg"`
+		Username string  `json:"username"`
+		Password string  `json:"password"`
+		RoleIds  []int64 `json:"role_ids"`
+	}
+	UpdateUserResponse {
+		Id       int64  `json:"id"`
+		HeadImg  string `json:"headimg"`
+		Username string `json:"username"`
+	}
+
+	ViewUserRequest {
+		Id int64 `json:"id"`
+	}
+	ViewUserResponse {
+		Id       int64  `json:"id"`
+		HeadImg  string `json:"headimg"`
+		Username string `json:"username"`
+		CreateAt string `json:"create_at"`
+		UpdateAt string `json:"update_at"`
+	}
+
+	ListUserItem {
+		Id       int64  `json:"id"`
+		HeadImg  string `json:"headimg"`
+		Username string `json:"username"`
+		CreateAt string `json:"create_at"`
+		UpdateAt string `json:"update_at"`
+	}
+	ListUserResponse {
+		Items  []ListUserItem `json:"items"`
+		Paging ListPageItem   `json:"paging"`
+	}
+
+	LoginUsernameReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+		Captcha  string `json:"captcha"`
+	}
+	LoginUsernameResp {
+		Token string `json:"token"`
+	}
+)
+
+@server(
+	group: auth/login
+	prefix: api/auth/login
+)
+service api-permission {
+	@handler login // TODO: replace handler name and delete this comment
+	post /username (LoginUsernameReq) returns(LoginUsernameResp)
+}
+
+@server(
+	jwt: Auth
+	group: auth/users
+	prefix: api/auth/users
+	middleware: Permissions
+)
+service api-permission {
+	@handler create // TODO: replace handler name and delete this comment
+	post /create (CreateUserRequest) returns (CreateUserResponse)
+	@handler update
+	put /update (UpdateUserRequest) returns (UpdateUserResponse)
+	@handler view
+	get /view (ViewUserRequest) returns (ViewUserResponse)
+	@handler list
+	get /list (ListCommonRequest) returns (ListUserResponse)
+}

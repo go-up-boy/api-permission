@@ -1,0 +1,79 @@
+syntax = "v1"
+
+info(
+	author: "hz"
+	date:   "2022-10-03"
+	desc:   "api管理"
+)
+
+type AddRuleRequest {
+	Uri  string `json:"uri"`
+	Name string `json:"name"`
+    Slug     string `json:"slug"`
+}
+type AddRuleResponse {
+	Uri      string `json:"uri"`
+	Name     string `json:"name"`
+    Slug     string `json:"slug"`
+}
+
+type UpdateRuleRequest {
+    Id      int64  `json:"id"`
+	Uri     string `json:"uri"`
+	Name    string `json:"name"`
+    Slug    string `json:"slug"`
+}
+type UpdateRuleResponse {
+    Id       int64  `json:"id"`
+	Uri      string `json:"uri"`
+	Name     string `json:"name"`
+    Slug     string `json:"slug"`
+	CreateAt string `json:"create_at"`
+	UpdateAt string `json:"update_at"`
+}
+
+type ViewRuleRequest {
+	Id int64 `json:"id"`
+}
+
+type ViewRuleResponse {
+	Id       int64  `json:"id"`
+	Uri      string `json:"uri"`
+	Name     string `json:"name"`
+    Slug     string `json:"slug"`
+	CreateAt string `json:"create_at"`
+	UpdateAt string `json:"update_at"`
+}
+
+type ListRuleItem {
+    Id       int64  `json:"id"`
+	Uri      string `json:"uri"`
+	Name     string `json:"name"`
+    Slug     string `json:"slug"`
+	CreateAt string `json:"create_at"`
+	UpdateAt string `json:"update_at"`
+}
+type ListRuleResponse {
+    Items  []ListRuleItem `json:"items"`
+    Paging ListPageItem   `json:"paging"`
+}
+
+@server(
+	jwt: Auth
+	group: auth/rules
+	prefix: api/auth/rules
+    middleware: Permissions
+)
+service api-permission {
+	@handler create
+	post /add(AddRuleRequest) returns(AddRuleResponse)
+
+	@handler update
+	put /update(UpdateRuleRequest) returns(UpdateRuleResponse)
+
+	@handler view
+	get /view(ViewRuleRequest) returns(ViewRuleResponse)
+
+	@handler list
+	get /list(ListCommonRequest) returns(ListRuleResponse)
+}

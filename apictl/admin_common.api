@@ -1,0 +1,19 @@
+syntax = "v1"
+
+
+type ListPageItem {
+    Limit int64 `json:"limit"`
+    Page int64 `json:"page"`
+    TotalPage int64 `json:"total_page"`
+    TotalRows int64 `json:"total_rows"`
+}
+
+type ListCommonRequest {
+    Limit  int64             `json:"limit"`
+    Page   int64             `json:"page"`
+    Filter map[string]map[string]string `json:"filter,optional"`
+}
+
+type CommonResponse {
+    Success bool `json:"success"`
+}

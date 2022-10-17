@@ -1,0 +1,100 @@
+syntax = "v1"
+
+info(
+	author: "hz"
+	date:   "2022-10-14"
+	desc:   "角色管理"
+)
+
+
+type CreateRoleRequest {
+    Name     string  `json:"name"`
+    Pid      int64   `json:"pid"`
+    MaxRole  int     `json:"max_role"`
+    Rules    []int64 `json:"rules"`
+    Slug     string  `json:"slug"`
+}
+
+type CreateRoleResponse {
+    Id          int64   `json:"id"`
+    Name        string  `json:"name"`
+    Pid         int64   `json:"pid"`
+    MaxRole     int     `json:"max_role"`
+    Slug        string  `json:"slug"`
+}
+
+type UpdateRoleRequest {
+    Id          int64   `json:"id"`
+    Name        string  `json:"name"`
+    Pid         int64   `json:"pid"`
+    MaxRole     int     `json:"max_role"`
+    Rules       []int64 `json:"rules"`
+    Slug        string  `json:"slug"`
+}
+
+type UpdateRoleResponse {
+    Id          int64  `json:"id"`
+    Name        string `json:"name"`
+    Pid         int64  `json:"pid"`
+    MaxRole     int     `json:"max_role"`
+    Slug        string  `json:"slug"`
+	CreateAt    string  `json:"create_at"`
+	UpdateAt    string  `json:"update_at"`
+}
+
+type ViewRoleRequest {
+    Id          int64 `json:"id"`
+}
+type ViewRoleResponse {
+    Id          int64  `json:"id"`
+    Name        string `json:"name"`
+    Pid         int64  `json:"pid"`
+    MaxRole     int    `json:"max_role"`
+    Slug        string `json:"slug"`
+	CreateAt    string `json:"create_at"`
+	UpdateAt    string `json:"update_at"`
+}
+
+type ListRoleItem {
+    Id          int64  `json:"id"`
+    Name        string `json:"name"`
+    Pid         int64  `json:"pid"`
+    MaxRole     int    `json:"max_role"`
+    Slug        string `json:"slug"`
+	CreateAt    string `json:"create_at"`
+	UpdateAt    string `json:"update_at"`
+}
+
+type ListRoleResponse {
+    Items  []ListRoleItem `json:"items"`
+    Paging ListPageItem   `json:"paging"`
+}
+
+type addRulesRequest {
+    RoleId int64    `json:"role_id"`
+    Rules  []int64  `json:"rules"`
+}
+
+@server(
+    jwt: Auth
+    group: auth/roles
+    prefix: api/auth/roles
+    middleware: Permissions
+)
+service api-permission {
+    @handler create
+    post /create(CreateRoleRequest) returns(CreateRoleResponse)
+
+    @handler update
+    put /update(UpdateRoleRequest) returns(UpdateRoleResponse)
+
+    @handler view
+    get /view(ViewRoleRequest) returns(ViewRoleResponse)
+
+    @handler list
+    get /list(ListCommonRequest) returns(ListRoleResponse)
+
+    @doc "角色添加权限"
+    @handler addRules
+    post /add_rules(addRulesRequest) returns(CommonResponse)
+}

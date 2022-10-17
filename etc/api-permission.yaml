@@ -1,0 +1,14 @@
+Name: api-permission
+Host: 0.0.0.0
+Port: 8080
+Mode: dev
+
+Auth:
+  AccessSecret: asdaczasdas123135sdgvxcvQER23QA47579LIJD9ASUDKL132N4
+  AccessExpire: 600
+
+Mysql:
+  DataSource: "go-admin:ZkWDRyyyRBM22c4A@tcp(172.29.108.76:3306)/go-admin?charset=utf8mb4&parseTime=true"
+
+Log:
+  Encoding: plain

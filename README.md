@@ -6,5 +6,12 @@
 
 # 有什么功能？
 * RBAC权限管理（Ok）
-* Response统一处理（OK）
+* Response统一处理（Ok）
+* 用户基础操作（Ok）
 * 权限管理文件迁移模式（待开发）
+
+# 常用操作
+1. go-zero一键生成api代码
+```shell
+goctl api go -api ./apictl/admin_users.api -dir .
+```

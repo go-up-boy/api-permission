@@ -1,0 +1,32 @@
+version: "3.0"
+services:
+  api-permission:
+    container_name: web-api
+    image: api-permission:v1.0.0
+    ports:
+      - "8080:8080"
+    links:
+      - dmysql:dmysql
+    depends_on:
+      - dmysql
+    network_mode: bridge
+    restart: always
+  dmysql:
+    container_name: web-mysql
+    image: mysql:8.0
+    ports:
+      - "3309:3306"
+    privileged: true
+    volumes:
+      - C:/Users/z/mysql/permission/log:/var/log
+      - C:/Users/z/mysql/permission/data:/var/lib/mysql
+      - C:/Users/z/mysql/permission/conf:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: 14ac57zxca8sfdyw4mhjo
+      MYSQL_DATABASE: go-permission
+      MYSQL_USER: go-permission
+      MYSQL_PASSWORD: ZkWDRyyyRBM22c4A
+    network_mode: bridge
+    expose:
+      - 3306
+    restart: always

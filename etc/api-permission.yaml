@@ -8,7 +8,7 @@ Auth:
   AccessExpire: 600
 
 Mysql:
-  DataSource: "go-admin:ZkWDRyyyRBM22c4A@tcp(172.29.108.76:3306)/go-admin?charset=utf8mb4&parseTime=true"
+  DataSource: "go-permission:ZkWDRyyyRBM22c4A@tcp(dmysql:3306)/go-permission?charset=utf8mb4&parseTime=true"
 
 Log:
   Encoding: plain

@@ -15,3 +15,29 @@
 ```shell
 goctl api go -api ./apictl/admin_users.api -dir .
 ```
+
+2. docker compose 部署
+```shell
+// 进入根目录执行命令
+docker build -t api-permission:v1.0.0 .
+
+docker compose up
+```
+3. 数据库导入
+    * 数据库文件在apictl目录下,可自行使用sql文件导入，也可用import_database脚本导入
+```shell
+#!/bin/bash
+
+HOST="127.0.0.1"
+PORT=3309
+USERNAME="go-permission"
+PASSWORD="ZkWDRyyyRBM22c4A"
+DB="go-permission"
+
+if [ -f "./go-permission.sql" ];then
+mysql -h${HOST} -P${PORT} -u${USERNAME} ${DB} -p${PASSWORD} -e "source ./go-permission.sql"
+mv ./go-permission.sql ./go-permission.sql.tmp
+else
+echo "数据库文件不存在或已导入"
+fi
+```

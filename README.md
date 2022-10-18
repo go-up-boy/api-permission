@@ -41,3 +41,9 @@ else
 echo "数据库文件不存在或已导入"
 fi
 ```
+
+# 云服务接入
+1. 阿里云 SLS
+https://blog.csdn.net/manwufeilong/article/details/125781421
+   ![post](https://s1.ax1x.com/2022/10/18/xsCCkD.png)
+   

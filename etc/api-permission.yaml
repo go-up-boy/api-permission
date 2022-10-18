@@ -11,4 +11,5 @@ Mysql:
   DataSource: "go-permission:ZkWDRyyyRBM22c4A@tcp(dmysql:3306)/go-permission?charset=utf8mb4&parseTime=true"
 
 Log:
-  Encoding: plain
+  Mode: console
+  Encoding: json
